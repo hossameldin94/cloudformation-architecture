@@ -36,6 +36,15 @@ jobs:
       - attach_workspace:
           at: ~/ 
       - print_pipiline_id
+  return_error:
+    docker: 
+      - image: circleci/node:13.8.0
+    steps:
+      - run: return 1
+      - run: 
+          name: on_error
+          command: echo "fail"
+          when: on_fail
 # Orchestrate or schedule a set of jobs
 workflows:
   # Name the workflow "welcome"
@@ -47,3 +56,4 @@ workflows:
       - print_world:
           requires:
             - print_hello
+      - return_error
