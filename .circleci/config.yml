@@ -9,7 +9,7 @@ jobs:
     docker: 
       - image: circleci/node:13.8.0
     steps:
-      - run: echo "hello" > ~/hello.txt
+      - run: echo "hello again" > ~/hello.txt
       - persist_to_workspace:
           root: ~/
           paths:
@@ -18,7 +18,9 @@ jobs:
     docker: 
       - image: circleci/node:13.8.0
     steps:
-      - run: echo helloWorld
+      - attach_workspace:
+          at: ~/ 
+      - run: cat ~/hello.txt
 # Orchestrate or schedule a set of jobs
 workflows:
   # Name the workflow "welcome"
