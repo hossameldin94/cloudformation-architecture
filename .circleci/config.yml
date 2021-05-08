@@ -1,5 +1,20 @@
 # Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
+
+commands:
+  say_hello:
+    description: my first command
+    parameters:
+      to:
+        type: string
+        default: Hello, Hoss
+    steps:
+      - run: echo << paramters.to >>
+  print_pipiline_id:
+    description: my first command
+    steps:
+      - run: echo ${CIRCLE_WORKFLOW_ID}
+
 # Use a package of configuration called an orb.
 orbs:
   # Declare a dependency on the welcome-orb
@@ -20,7 +35,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/ 
-      - run: cat ~/hello.txt
+      - print_pipiline_id
 # Orchestrate or schedule a set of jobs
 workflows:
   # Name the workflow "welcome"
